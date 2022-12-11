@@ -2257,20 +2257,26 @@ object day01 extends App {
       |1344
       |""".stripMargin
 
-  // Convert Input String to List
-  val list = itemList.split("\n").toList
+  def calculateElvesCalories(itemList: String): List[Int] = {
 
-  // Split the list wherever there is a blank line
-  val elves = list.foldLeft(List(List[String]())) {
-    case (acc, elem) =>
-      if (elem == "") acc :+ List[String]()
-      else acc.init :+ (acc.last :+ elem)
+    // Convert Input String to List
+    val list = itemList.split("\n").toList
+
+    // Split the list wherever there is a blank line
+    val elves = list.foldLeft(List(List[String]())) {
+      case (acc, elem) =>
+        if (elem == "") acc :+ List[String]()
+        else acc.init :+ (acc.last :+ elem)
+    }
+
+    // Sum up the calories for each elve
+    val elvesCalories = elves.map(_.map(_.toInt).sum)
+    elvesCalories
   }
 
-  // Sum up the calories for each elve
-  val elvesCalories = elves.map(_.map(_.toInt).sum)
+  println(calculateElvesCalories(itemList).max)
 
-  val maxCalorieElve = elvesCalories.max
+  val top3Elves = calculateElvesCalories(itemList).sorted.reverse.take(3)
+  println(top3Elves.sum)
 
-  println(maxCalorieElve)
 }
