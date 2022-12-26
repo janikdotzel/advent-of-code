@@ -34,6 +34,14 @@ object day04 extends App {
     else false
   }
 
+  def isPartlyOverlapping(elf1: Elf, elf2: Elf): Boolean = {
+    val overlappingSections: Set[Int] = findOverlappingSections(elf1, elf2)
+    if (overlappingSections.nonEmpty) true
+    else false
+  }
+
   val fullyOverlappingCount = formattedInput.map(x => isFullyOverlapping(x._1, x._2)).count(_ == true)
   println(fullyOverlappingCount)
+  val partlyOverlappingCount = formattedInput.map(x => isPartlyOverlapping(x._1, x._2)).count(_ == true)
+  println(partlyOverlappingCount)
 }
